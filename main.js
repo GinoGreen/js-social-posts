@@ -55,3 +55,93 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
+/*
+- Utilizzaimo la base dati fornita e anche il codce HTML/CSS
+- Gli oggetti nell’array di oggetti rappresentano tutti i post. Ogni post dovrà avere le informazioni necessarie per stampare la relativa card: nome autore, foto profilo, data, testo del post, immagine (non tutti i post devono avere una immagine), numero di likes.
+- Stampiamo i post del nostro feed.
+- Sotto al nome NON inseire il calcolo della data (es 4 mesi fa) ma la data i formato italiano (GG/MM/AAAA)
+*/
+
+const container = document.getElementById('container');
+
+appendPosts();
+
+
+// const likeButton = document.querySelector('[data-postid="`${id}`"]')
+
+// console.log('likeButton',likeButton);
+
+//         likeButton.addEventListener('click', function () {
+            
+//             likeButton.className = 'like-button--liked';
+//         });
+
+
+function appendPosts () {
+
+    for (let i = 0; i < posts.length; i++) {
+
+        container.append(getPost(i));
+
+        const likeButton = document.querySelector(`[data-postid="${posts[i].id}"]`)
+
+        console.log('likeButton',likeButton);
+
+        likeButton.addEventListener('click', function () {
+            
+            likeButton.classList.add('like-button--liked');
+        });
+    }
+
+}
+
+function getPost (index) {
+
+    //creo un div che conterrá la card del post
+    const postDOM = document.createElement('div');
+    postDOM.className = 'post';
+
+    // salvo l'oggetto nella variabile post
+    const post = posts[index];
+    const {id, content, media, author, likes, created} = post;
+    
+    postDOM.innerHTML = `
+        <div class="post__header">
+            <div class="post-meta">                    
+                <div class="post-meta__icon">
+                    <img class="profile-pic" src="${author.image}" alt="${author.name}">                    
+                </div>
+                <div class="post-meta__data">
+                    <div class="post-meta__author">${author.name}</div>
+                    <div class="post-meta__time">${reverseDate(created)}</div>
+                </div>
+            </div>
+        </div>
+        <div class="post__text">${content}</div>
+        <div class="post__image">
+            <img src="${media}" alt="">
+        </div>
+        <div class="post__footer">
+            <div class="likes js-likes">
+                <div class="likes__cta">
+                    <a class="like-button  js-like-button" data-postid="${id}">
+                        <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="like-button__label">Mi Piace</span>
+                    </a>
+                </div>
+                <div class="likes__counter">
+                    Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
+                </div>
+            </div> 
+        </div>
+    `;
+
+    return postDOM;
+}
+
+function reverseDate(date) {
+
+    date = date.split("-").reverse().join("-");
+    console.log(date);
+    return date;
+}
