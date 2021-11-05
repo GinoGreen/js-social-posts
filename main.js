@@ -78,7 +78,7 @@ function appendPosts () {
 
         const likeButton = document.querySelector(`[data-postid="${post.id}"]`)
 
-        const likeCounter = document.querySelector('.likes__counter');
+        const likeCounter = document.querySelectorAll('.likes__counter');
 
         console.log('likeButton',likeButton);
 
@@ -86,9 +86,12 @@ function appendPosts () {
             
             likeButton.classList.add('like-button--liked');
 
-            console.log('i dentro event ', i);
-            console.log('post likes cliccato', post.likes);
-            likeCounter.innerHTML = `
+            console.log('i dentro event vale', i);
+            // console.log('post likes cliccato', post.likes);
+            // console.log('nuova somma likes', post.likes + 1);
+            console.log(likeCounter.innerHTML);
+
+            likeCounter[i].innerHTML = `
                 Piace a <b id="like-counter-1" class="js-likes-counter">${post.likes + 1}</b> persone
             `;
         });
