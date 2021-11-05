@@ -66,30 +66,31 @@ const container = document.getElementById('container');
 
 appendPosts();
 
-
-// const likeButton = document.querySelector('[data-postid="`${id}`"]')
-
-// console.log('likeButton',likeButton);
-
-//         likeButton.addEventListener('click', function () {
-            
-//             likeButton.className = 'like-button--liked';
-//         });
-
+///////////////FUNZIONI////////////
 
 function appendPosts () {
 
     for (let i = 0; i < posts.length; i++) {
 
+        const post = posts[i];
+
         container.append(getPost(i));
 
-        const likeButton = document.querySelector(`[data-postid="${posts[i].id}"]`)
+        const likeButton = document.querySelector(`[data-postid="${post.id}"]`)
+
+        const likeCounter = document.querySelector('.likes__counter');
 
         console.log('likeButton',likeButton);
 
         likeButton.addEventListener('click', function () {
             
             likeButton.classList.add('like-button--liked');
+
+            console.log('i dentro event ', i);
+            console.log('post likes cliccato', post.likes);
+            likeCounter.innerHTML = `
+                Piace a <b id="like-counter-1" class="js-likes-counter">${post.likes + 1}</b> persone
+            `;
         });
     }
 
@@ -104,6 +105,10 @@ function getPost (index) {
     // salvo l'oggetto nella variabile post
     const post = posts[index];
     const {id, content, media, author, likes, created} = post;
+
+    if (author.image === null) {
+        author.image = 'https://image.shutterstock.com/image-vector/default-avatar-profile-icon-grey-260nw-1545687098.jpg';
+    }
     
     postDOM.innerHTML = `
         <div class="post__header">
@@ -132,7 +137,7 @@ function getPost (index) {
                 <div class="likes__counter">
                     Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
                 </div>
-            </div> 
+            </div>
         </div>
     `;
 
