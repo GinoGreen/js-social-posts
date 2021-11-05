@@ -89,7 +89,7 @@ function appendPosts () {
             console.log('i dentro event vale', i);
             // console.log('post likes cliccato', post.likes);
             // console.log('nuova somma likes', post.likes + 1);
-            console.log(likeCounter.innerHTML);
+            // console.log(likeCounter[i].innerHTML);
 
             likeCounter[i].innerHTML = `
                 Piace a <b id="like-counter-1" class="js-likes-counter">${post.likes + 1}</b> persone
